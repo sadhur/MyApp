@@ -1,0 +1,69 @@
+<templateSet group="Cloud api">
+  <template name="apiImp" value="String json = gson.toJson(paramData);&#10;&#10;Logger.json(json);&#10;&#10;requestBody = new FormBody.Builder()&#10;        .add(SVC_ID, $EXPR$)&#10;        .add(I_JSON, json)&#10;        .build();&#10;&#10;request = new Request.Builder()&#10;        .url(POST_URL)&#10;        .post(requestBody)&#10;        .build();&#10;&#10;call = okHttpClient.newCall(request);&#10;call.enqueue(new Callback() {&#10;    @Override&#10;    public void onFailure(Call call, IOException e) {&#10;        $LISTENER$.onError$name$(e.getMessage());&#10;    }&#10;&#10;    @Override&#10;    public void onResponse(Call call, Response response) throws IOException {&#10;        String strResponse = response.body().string();&#10;        BaseGlobal.printLog(&quot;d&quot;, TAG, &quot;strResponse = &quot; + strResponse);&#10;&#10;        ResponseData rData = ResponseData.fromJson(strResponse);&#10;        Logger.d(rData.getCode());&#10;&#10;        if(rData.getCode() == 1)&#10;        {&#10;            Type type = new TypeToken&lt;DataApi$no$&gt;() {}.getType();&#10;            DataApi$no$ data2 = gson.fromJson(rData.getDataJsonStr(), type);&#10;            BaseGlobal.printLog(&quot;d&quot;, TAG, &quot;data2 = &quot; + data2);&#10;            &#10;            $LISTENER$.onSuccess$name$(data2);&#10;        }&#10;        else&#10;        {&#10;            String failMsg = rData.getsMSG();&#10;            BaseGlobal.printLog(&quot;d&quot;, TAG, &quot;failMsg = &quot; + failMsg);&#10;            $LISTENER$.onError$name$(failMsg);&#10;        }&#10;&#10;&#10;    }&#10;});" toReformat="false" toShortenFQNames="true">
+    <variable name="EXPR" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="LISTENER" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="name" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="no" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_STATEMENT" value="true" />
+      <option name="JAVA_EXPRESSION" value="false" />
+      <option name="JAVA_DECLARATION" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="false" />
+      <option name="COMPLETION" value="false" />
+    </context>
+  </template>
+  <template name="newApi" value="/**&#10; * api $no$   &#10; *&#10; *  &#10; *&#10; */&#10;public static final String API$no$_$CMD_NAME$  = &quot;$CMD_NAME$&quot;;//$CMD_NAME2$&#10;&#10;private Api$no$$CMD_NAME2$Listener&lt;DataApi$no$&gt; api$no$$CMD_NAME2$Listener;//api $no$&#10;public void setApi$no$$CMD_NAME2$Listener(Api$no$$CMD_NAME2$Listener&lt;DataApi$no$&gt; listener)&#10;{&#10;    this.api$no$$CMD_NAME2$Listener = listener;&#10;}&#10;&#10;/**&#10; * api $no$&#10; *&#10; *  &#10; *  &#10; * @param paramData&#10; */&#10;public void setApi$no$$CMD_NAME2$(ParamDataApi$no$ paramData)&#10;{&#10;    &#10;}&#10;" toReformat="false" toShortenFQNames="true">
+    <variable name="no" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="CMD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="CMD_NAME2" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_STATEMENT" value="true" />
+      <option name="JAVA_EXPRESSION" value="true" />
+      <option name="JAVA_DECLARATION" value="true" />
+      <option name="JAVA_COMMENT" value="true" />
+      <option name="JAVA_STRING" value="true" />
+      <option name="COMPLETION" value="true" />
+    </context>
+  </template>
+  <template name="newApi2" value="/**&lt;pre&gt;&#10; * api $no$   &#10; *&#10; *  &#10; *&#10; */&#10;public static final String API$no$_$CMD_NAME$  = &quot;$CMD_NAME$&quot;;//$CMD_NAME2$&#10;&#10;/**&lt;pre&gt;&#10; * api $no$&#10; *&#10; *  &#10; *  &#10; * @param paramData&#10; */&#10;public void setApi$no$$CMD_NAME2$(ParamDataApi$no$ paramData)&#10;{&#10;    CloudRequest&lt;ParamDataApi$no$, ReplyDataApi$no$ &gt; cloudRequest = new CloudRequest&lt;&gt;();&#10;    cloudRequest.sendRequest(API$no$_$CMD_NAME$, paramData, this.listeners.get(ReplyDataApi$no$.class.getSimpleName()));&#10;}&#10;&#10;" toReformat="false" toShortenFQNames="true">
+    <variable name="no" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="CMD_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="CMD_NAME2" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_STATEMENT" value="true" />
+      <option name="JAVA_EXPRESSION" value="true" />
+      <option name="JAVA_DECLARATION" value="true" />
+      <option name="JAVA_COMMENT" value="true" />
+      <option name="JAVA_STRING" value="true" />
+      <option name="COMPLETION" value="true" />
+    </context>
+  </template>
+  <template name="newListener" value="cloudApi.setApiListener(listener$no$, ReplyDataApi$no$.class.getSimpleName());&#10;&#10;ApiListener&lt;ReplyDataApi$no$&gt; listener$no$ = new ApiListener&lt;ReplyDataApi$no$&gt;()&#10;" toReformat="false" toShortenFQNames="true">
+    <variable name="no" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_STATEMENT" value="true" />
+      <option name="JAVA_EXPRESSION" value="true" />
+      <option name="JAVA_DECLARATION" value="true" />
+      <option name="JAVA_COMMENT" value="true" />
+      <option name="JAVA_STRING" value="true" />
+      <option name="COMPLETION" value="true" />
+    </context>
+  </template>
+  <template name="newCase" value="case $no$:&#10;&#10;    ParamDataApi$no$ data$no$ = gson.fromJson(&quot;&quot;&#10;            , ParamDataApi$no$.class);&#10;&#10;    cloudApi.setApi$no$$END$(data$no$);&#10;&#10;    //驗證 reply data class   with  test data&#10;    Type type$no$ = new TypeToken&lt;List&lt;ReplyDataApi$no$&gt;&gt;() {}.getType();&#10;    List&lt;ReplyDataApi$no$&gt; replyDataApi$no$ = gson.fromJson($END$&#10;            ,type$no$);&#10;    BaseGlobal.printLog(&quot;d&quot;, TAG, &quot;replyDataApi$no$ = &quot; + replyDataApi$no$);&#10;&#10;    break;" toReformat="false" toShortenFQNames="true">
+    <variable name="no" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_CODE" value="true" />
+      <option name="JAVA_STATEMENT" value="true" />
+      <option name="JAVA_EXPRESSION" value="true" />
+      <option name="JAVA_DECLARATION" value="true" />
+      <option name="JAVA_COMMENT" value="false" />
+      <option name="JAVA_STRING" value="true" />
+      <option name="COMPLETION" value="true" />
+    </context>
+  </template>
+</templateSet>
